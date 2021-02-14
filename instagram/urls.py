@@ -7,7 +7,7 @@ register_converter(MonthConverter, 'month')
 register_converter(DayConverter, 'day')
 
 
-app_name = 'instagram' 
+app_name = 'instagram'
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
