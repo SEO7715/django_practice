@@ -3,9 +3,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, ArchiveIndexView
 from django.views.generic.dates import YearArchiveView
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Post
 from django.http import HttpRequest, HttpResponse, Http404
+from django.contrib import messages
+from django.urls import reverse
+
 
 # post_list = login_required(ListView.as_view(model=Post, paginate_by=10))
 
@@ -40,7 +43,7 @@ post_list = PostListView.as_view()
 #     queryset=Post.objects.filter(is_public=True))
 
 class PostDetailView(DetailView):
-    model=Post,
+    model=Post
     # queryset=Post.objects.filter(is_public=True))
     
     def get_queryset(self):
