@@ -28,8 +28,8 @@ urlpatterns = [
         ), name='root'),
     path('admin/', admin.site.urls),
     path('accoutns/', include('accounts.urls')),
-    path('blog1/',include('blog1.urls')),
-    path('instagram/', include('instagram.urls')),
+    path('blog1/', include('blog1.urls')),
+    path('k-instagram/', include('instagram.urls')),
 ]
 
 if settings.DEBUG:
