@@ -8,6 +8,21 @@ from .models import Post
 from django.http import HttpRequest, HttpResponse, Http404
 from django.contrib import messages
 from django.urls import reverse
+from .forms import PostForm
+# from django.views import View
+
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save()
+            return redirect(post)
+    else:
+        form = PostForm()   
+
+    return render(request, 'instagram/post_form.html', {
+        'form': form,
+    })
 
 
 # post_list = login_required(ListView.as_view(model=Post, paginate_by=10))
