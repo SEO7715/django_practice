@@ -9,6 +9,7 @@ from django.http import HttpRequest, HttpResponse, Http404
 from django.contrib import messages
 from django.urls import reverse
 from .forms import PostForm
+from django.views.decorators.csrf import csrf_exempt
 # from django.views import View
 
 def post_new(request):
