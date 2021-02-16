@@ -10,21 +10,46 @@ from django.contrib import messages
 from django.urls import reverse
 from .forms import PostForm
 from django.views.decorators.csrf import csrf_exempt
-# from django.views import View
+from django.views import View
 
+@login_required
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            # 현재 로그인 user instance
+            post.author = request.user
+            post.save()
             return redirect(post)
     else:
         form = PostForm()   
 
     return render(request, 'instagram/post_form.html', {
         'form': form,
+        'post': None,
     })
 
+@login_required
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    # 작성자 check tip
+    if post.author != request.user:
+        messages.error(request, '작성자만 수정할 수 있습니다.')
+        return redirect(post)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save()
+            return redirect(post)
+    else:
+        form = PostForm(instance=post)   
+
+    return render(request, 'instagram/post_form.html', {
+        'form': form,
+    })
 
 # post_list = login_required(ListView.as_view(model=Post, paginate_by=10))
 
