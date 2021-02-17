@@ -49,6 +49,7 @@ def post_edit(request, pk):
 
     return render(request, 'instagram/post_form.html', {
         'form': form,
+        'post': post,
     })
 
 # post_list = login_required(ListView.as_view(model=Post, paginate_by=10))
