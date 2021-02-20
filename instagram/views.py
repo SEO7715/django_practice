@@ -26,7 +26,7 @@ def post_new(request):
 
     return render(request, 'instagram/post_form.html', {
         'form': form,
-        # 'post': None,
+        'post': None,
     })
 
 @login_required

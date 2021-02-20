@@ -9,8 +9,13 @@
         <input type="submit" value="저장" />
     </form>
     <hr/>
-    {% if form.instance %}
+    <!-- {% if form.instance %}
         <a href="{{ form.instance.get_absolute_url }}" class="btn-btn-secondary">
+            내용으로
+        </a>
+    {% endif %} -->
+    {% if post %}
+        <a href="{{ post.get_absolute_url }}" class="btn btn-secondary">
             내용으로
         </a>
     {% endif %}

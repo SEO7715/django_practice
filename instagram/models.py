@@ -19,9 +19,8 @@ class Post(models.Model):
         # return f"Custom Post object ({self.id})"
         return self.message
     
-    def get_absolute_url(self):
-        print("john test", self.pk)
-        return reverse('instagram:post_detail', args=[self.pk])
+    # def get_absolute_url(self):
+    #     return reverse('instagram:post_detail', args=[self.pk])
 
     class Meta:
         ordering = ['-id']
