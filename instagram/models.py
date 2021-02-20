@@ -20,6 +20,7 @@ class Post(models.Model):
         return self.message
     
     def get_absolute_url(self):
+        print("john test", self.pk)
         return reverse('instagram:post_detail', args=[self.pk])
 
     class Meta:

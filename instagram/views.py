@@ -18,7 +18,6 @@ def post_new(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            # 현재 로그인 user instance
             post.author = request.user
             post.save()
             return redirect(post)
@@ -27,11 +26,12 @@ def post_new(request):
 
     return render(request, 'instagram/post_form.html', {
         'form': form,
-        'post': None,
+        # 'post': None,
     })
 
 @login_required
 def post_edit(request, pk):
+    
     post = get_object_or_404(Post, pk=pk)
 
     # 작성자 check tip
