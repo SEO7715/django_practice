@@ -20,18 +20,17 @@ def post_new(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
+            messages.success(request, '포스팅을 저장하였습니다!')
             return redirect(post)
     else:
         form = PostForm()   
 
     return render(request, 'instagram/post_form.html', {
         'form': form,
-        'post': None,
     })
 
 @login_required
 def post_edit(request, pk):
-    
     post = get_object_or_404(Post, pk=pk)
 
     # 작성자 check tip
@@ -43,13 +42,13 @@ def post_edit(request, pk):
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
+            messages.success(request, '포스팅을 수정하였습니다!')
             return redirect(post)
     else:
         form = PostForm(instance=post)   
 
     return render(request, 'instagram/post_form.html', {
         'form': form,
-        'post': post,
     })
 
 # post_list = login_required(ListView.as_view(model=Post, paginate_by=10))
@@ -67,6 +66,7 @@ post_list = PostListView.as_view()
 #     q = request.GET.get('q', '')
 #     if q:
 #         qs = qs.filter(message__icontains=q)
+
 #     return render(request, 'instagram/post_list.html', {
 #         'post_list': qs,
 #         'q': q,
